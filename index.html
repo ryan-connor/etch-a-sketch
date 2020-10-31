@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Etch-a-Sketch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="container">
+
+
+
+    </div>
+
+
+<script>
+// use JS to make 16 by 16 grid of square divs in the #container
+
+//parent node
+const container= document.getElementById("container");
+let n= 5;
+let contWidth= 700;
+let squareWidth= 700/n; //figure out how to assign to css rule later
+
+//create squares in grid
+for (i=0; i<n; i++) {
+//individual square with class square
+const square= document.createElement("div");
+square.className="square";
+//add individual square into parent container
+container.appendChild(square);
+}
+
+
+
+
+</script>
+
+
+</body>
+</html>
