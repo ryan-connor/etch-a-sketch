@@ -7,33 +7,101 @@
 </head>
 <body>
 
-    <div id="container">
+    <h1 id="title">Etch-a-Sketch</h1>
 
-
-
+    <div id="buttonDiv"> 
+      <button id="restart" onclick="buttonClick()">Reset Board</button> 
     </div>
 
+    <div id="container">
+    </div>
 
 <script>
-// use JS to make 16 by 16 grid of square divs in the #container
 
-//parent node
+let defaultGrid= 4;
 const container= document.getElementById("container");
-let n= 5;
-let contWidth= 700;
-let squareWidth= 700/n; //figure out how to assign to css rule later
+
+populateGrid(defaultGrid); 
+
+//populate the grid with square divs
+function populateGrid (numPop) {
+
+let n= numPop; //squares per side
+let numSquares= n**2;
+let contWidth= 600;
+let squareBorder= 1; 
+let contCols= n;
+let contRows= contCols;
+
+container.style.gridTemplateRows= `repeat(${contRows}, auto)`; 
+container.style.gridTemplateColumns= `repeat(${contCols}, auto)`; 
+container.style.border= `solid ${squareBorder}px black`;
 
 //create squares in grid
-for (i=0; i<n; i++) {
-//individual square with class square
+for (i=0; i<numSquares; i++) {
+
 const square= document.createElement("div");
 square.className="square";
-//add individual square into parent container
+//set square size and border
+square.style.border= `solid ${squareBorder}px black`;
+square.style.width=`calc: 100% - ${2*squareBorder}px`;
+square.style.height=`calc: 100% - ${2*squareBorder}px`;
+square.setAttribute("data-lightness","55"); //lightness set at 55 so all the squares aren't too white
+//add each individual square into parent container
 container.appendChild(square);
 }
 
+//set mouseover effect for each square so background color changes
+const squares = document.querySelectorAll(".square");
 
+squares.forEach((section) => {
+  section.addEventListener("mouseenter", () => {
 
+    let randomHue = Math.floor(Math.random()*361); //assign random hue
+    let randomSat= Math.floor(Math.random()*51) +50; //assign random saturation from 50-100 since otherwise its often too dark
+    //darken each square by 10% each time color changes    
+    let currentStyle= getComputedStyle(section);
+    let currentLight= section.getAttribute("data-lightness");
+
+    if (currentLight<= 5) {
+      section.setAttribute("data-lightness",0);
+    }
+    else if (currentLight >5) {
+     section.setAttribute("data-lightness", (currentLight-5));
+    }
+    section.style.backgroundColor=`hsl(${randomHue},${randomSat}%, ${currentLight}%)`;
+
+  });
+});
+
+}
+
+//reset button to select new grid size
+function buttonClick () {
+
+  let userChoice= prompt("Choose number of boxes per side:", defaultGrid);
+
+  if (!(parseInt(userChoice))) {
+    clearGrid();
+    populateGrid(defaultGrid);
+  }
+  else if (parseInt(userChoice) >100) {
+    alert("Error, can not choose values greater than 100.");   
+  }
+  else if (parseInt(userChoice)<101) {
+    clearGrid();
+    populateGrid(parseInt(userChoice));
+  }
+}
+
+function clearGrid () { //delete all the squares
+   const squares = document.querySelectorAll(".square");
+  squares.forEach ((square) => {
+    container.removeChild(square);
+    console.log("removed square");
+
+  });
+}
 
 </script>
 
