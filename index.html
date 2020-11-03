@@ -79,14 +79,10 @@ squares.forEach((section) => {
 //reset button to select new grid size
 function buttonClick () {
 
-  let userChoice= prompt("Choose number of boxes per side:", defaultGrid);
+  let userChoice= prompt("Choose number of boxes per side (1 to 100):", defaultGrid);
 
-  if (!(parseInt(userChoice))) {
-    clearGrid();
-    populateGrid(defaultGrid);
-  }
-  else if (parseInt(userChoice) >100) {
-    alert("Error, can not choose values greater than 100.");   
+  if (!(parseInt(userChoice)) || (parseInt(userChoice) >100) || (parseInt(userChoice) < 1)) {
+    alert("Error, must choose a value between 1 and 100.");   
   }
   else if (parseInt(userChoice)<101) {
     clearGrid();
