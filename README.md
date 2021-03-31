@@ -1,3 +1,9 @@
+<h4 align="center">
+<img alt="Tic Tac Toe Gif" src="demo/EtchASketch.gif" height="400px">
+<img alt="Tic Tac Toe Image" src="demo/EtchASketch.png" height="400px">
+</h4>
+
+
 ## Etch-a-Sketch
 Etch-a-Sketch/Sketchpad type drawing game.
 
